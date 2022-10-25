@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-group 'me.petrolingus.swi'
+group 'me.petrolingus.rpc'
 version '1.0-SNAPSHOT'
 
 repositories {
