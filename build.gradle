@@ -25,7 +25,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'me.petrolingus.swi.Main'
+    mainClass = 'me.petrolingus.rpc.Main'
 }
 
 javafx {

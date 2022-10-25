@@ -1,4 +1,4 @@
-package me.petrolingus.swi.lwjgl.mesh;
+package me.petrolingus.rpc.lwjgl.mesh;
 
 import java.util.ArrayList;
 import java.util.List;

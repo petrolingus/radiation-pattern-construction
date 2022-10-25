@@ -1,4 +1,4 @@
-package me.petrolingus.swi.util;
+package me.petrolingus.rpc.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,6 +1,6 @@
-package me.petrolingus.swi.lwjgl;
+package me.petrolingus.rpc.lwjgl;
 
-import me.petrolingus.swi.util.Utils;
+import me.petrolingus.rpc.util.Utils;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL30;

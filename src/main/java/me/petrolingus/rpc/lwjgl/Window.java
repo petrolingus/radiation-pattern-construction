@@ -1,10 +1,10 @@
-package me.petrolingus.swi.lwjgl;
+package me.petrolingus.rpc.lwjgl;
 
-import me.petrolingus.swi.Controller;
-import me.petrolingus.swi.lwjgl.axis.Axis;
-import me.petrolingus.swi.lwjgl.camera.Camera;
-import me.petrolingus.swi.lwjgl.mesh.Mesh;
-import me.petrolingus.swi.lwjgl.mesh.MeshGenerator;
+import me.petrolingus.rpc.Controller;
+import me.petrolingus.rpc.lwjgl.axis.Axis;
+import me.petrolingus.rpc.lwjgl.camera.Camera;
+import me.petrolingus.rpc.lwjgl.mesh.Mesh;
+import me.petrolingus.rpc.lwjgl.mesh.MeshGenerator;
 import org.joml.Math;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFWErrorCallback;

@@ -1,4 +1,4 @@
-package me.petrolingus.swi.lwjgl.camera;
+package me.petrolingus.rpc.lwjgl.camera;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

@@ -1,10 +1,10 @@
-package me.petrolingus.swi;
+package me.petrolingus.rpc;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import me.petrolingus.swi.lwjgl.Window;
+import me.petrolingus.rpc.lwjgl.Window;
 
 public class Main extends Application {
 

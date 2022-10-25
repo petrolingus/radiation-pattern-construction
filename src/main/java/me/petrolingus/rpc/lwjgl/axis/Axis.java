@@ -1,6 +1,6 @@
-package me.petrolingus.swi.lwjgl.axis;
+package me.petrolingus.rpc.lwjgl.axis;
 
-import me.petrolingus.swi.lwjgl.ShaderProgram;
+import me.petrolingus.rpc.lwjgl.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 

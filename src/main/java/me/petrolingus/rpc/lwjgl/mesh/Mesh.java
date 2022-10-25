@@ -1,6 +1,4 @@
-package me.petrolingus.swi.lwjgl.mesh;
-
-import java.nio.FloatBuffer;
+package me.petrolingus.rpc.lwjgl.mesh;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
