@@ -1,69 +1,48 @@
 package me.petrolingus.rpc.lwjgl.camera;
 
+import me.petrolingus.rpc.util.MouseInput;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 public class Camera {
 
     private float phi;
-    private float tau;
-    private float zoom;
-    private boolean isTop;
+    private float theta;
+
+    private Vector3f eye;
+
+    private static final Vector3f ZERO = new Vector3f().zero();
+    private static final Vector3f UP = new Vector3f(0, -1, 0);
 
     public Camera() {
-        this(45, 45, 10);
+        this(45, 45);
     }
 
-    public Camera(float phi, float tau, float zoom) {
+    public Camera(float phi, float theta) {
         this.phi = phi;
-        this.tau = tau;
-        this.zoom = zoom;
+        this.theta = theta;
+        this.eye = new Vector3f().zero();
     }
 
-    public void input(long window) {
+    public void input(MouseInput mouseInput) {
 
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            phi += 0.5;
-        } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            phi -= 0.5;
+        mouseInput.input();
+
+        theta -= mouseInput.getDisplVec().x * 0.3;
+        if (theta < 20 || theta > 160) {
+            theta += mouseInput.getDisplVec().x * 0.3;
         }
 
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            tau -= 0.5;
-            if (tau < 30) {
-                tau = 30;
-            }
-        } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            tau += 0.5;
-            if (tau > 150) {
-                tau = 150;
-            }
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-            tau = 180;
-            phi = 270;
-            isTop = true;
-        } else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-            tau = 45;
-            phi = 45;
-            isTop = false;
-        }
-
+        phi -= mouseInput.getDisplVec().y * 0.3;
     }
 
     public Matrix4f getViewMatrix() {
 
-        float eyeX = zoom * (float) Math.sin(Math.toRadians(tau)) * (float) Math.cos(Math.toRadians(phi));
-        float eyeY = zoom * (float) Math.sin(Math.toRadians(tau)) * (float) Math.sin(Math.toRadians(phi));
-        float eyeZ = zoom * (float) Math.cos(Math.toRadians(tau));
+        float eyeX = (float) (2 * Math.sin(Math.toRadians(theta)) * Math.cos(Math.toRadians(phi)));
+        float eyeY = (float) (2 * Math.sin(Math.toRadians(theta)) * Math.sin(Math.toRadians(phi)));
+        float eyeZ = (float) (2 * Math.cos(Math.toRadians(theta)));
+        eye.set(eyeX, eyeZ, eyeY);
 
-        Vector3f eye = new Vector3f(eyeX, eyeZ, eyeY);
-        Vector3f center = new Vector3f(0, 0, 0);
-        Vector3f up = new Vector3f(0, -1, 0);
-        return new Matrix4f().setLookAt(eye, center, up);
+        return new Matrix4f().setLookAt(eye, ZERO, UP);
     }
 }

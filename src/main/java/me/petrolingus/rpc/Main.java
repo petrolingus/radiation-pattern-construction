@@ -9,13 +9,6 @@ import me.petrolingus.rpc.lwjgl.Window;
 public class Main extends Application {
 
     public static void main(String[] args) {
-        new Thread(() -> {
-            try {
-                new Window().run();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
         launch(args);
     }
 
@@ -23,9 +16,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        primaryStage.setTitle("Spherical Wave Interference");
+        primaryStage.setTitle("Radiation Pattern Construction");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.showingProperty().addListener((observable, oldValue, newValue) -> System.exit(0));
     }
 }

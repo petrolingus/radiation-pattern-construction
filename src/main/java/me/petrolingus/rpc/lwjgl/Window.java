@@ -5,12 +5,15 @@ import me.petrolingus.rpc.lwjgl.axis.Axis;
 import me.petrolingus.rpc.lwjgl.camera.Camera;
 import me.petrolingus.rpc.lwjgl.mesh.Mesh;
 import me.petrolingus.rpc.lwjgl.mesh.MeshGenerator;
+import me.petrolingus.rpc.util.MouseInput;
 import org.joml.Math;
 import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
+import java.nio.ByteBuffer;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -25,7 +28,13 @@ public class Window {
 
     public static long window;
 
+    public ByteBuffer buffer;
+
+    public MouseInput mouseInput;
+
     public void run() throws Exception {
+
+        buffer = BufferUtils.createByteBuffer(WIDTH * HEIGHT * 4);
 
         init();
         loop();
@@ -50,6 +59,7 @@ public class Window {
         // Configure GLFW
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_STENCIL_BITS, 4);
         glfwWindowHint(GLFW_SAMPLES, 4);
 
@@ -66,15 +76,15 @@ public class Window {
         glfwSwapInterval(1);
 
         // Make the window visible
-        glfwShowWindow(window);
+        glfwHideWindow(window);
     }
 
     private void loop() throws Exception {
 
         GL.createCapabilities();
-        GL11.glEnable(GL_DEPTH_TEST);
-        GL11.glEnable(GL_STENCIL_TEST);
-        GL11.glClearColor(0, 0, 0, 1);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
+        glClearColor(0, 0, 0, 1);
 //        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         String fragmentShaderPath = "fragment.shader";
@@ -86,7 +96,7 @@ public class Window {
         Matrix4f projectionMatrix = new Matrix4f().setOrtho(-WIDTH / 2.0f, WIDTH / 2.0f, HEIGHT / 2.0f, -HEIGHT / 2.0f, 0.01f, 1000.f, true);
         Camera camera = new Camera();
 
-        Mesh mesh = MeshGenerator.generate(512);
+        Mesh mesh = MeshGenerator.generate(200);
         Axis axis = new Axis();
 
         float[] positions = mesh.getPositions();
@@ -95,9 +105,14 @@ public class Window {
 
             if (Controller.isChanged) {
 
-                double d = Controller.sliderValue1; // 0.1
-                double omega = Controller.sliderValue2; // 2
-                double amplitude = Controller.sliderValue3; // 0.01
+//                double d = Controller.sliderValue1; // 0.1
+//                double omega = Controller.sliderValue2; // 2
+//                double amplitude = Controller.sliderValue3; // 0.01
+
+                double lambda = 1;
+                double omega = 0.5;
+                double d = lambda * omega;
+                double amplitude = 1;
 
                 float min = Float.MAX_VALUE;
                 float max = Float.MIN_VALUE;
@@ -110,7 +125,7 @@ public class Window {
                                 double x1 = 100 * positions[i - 1] * d;
                                 double y1 = 100 * positions[i + 1] * d;
                                 double x2 = j * d - 5 * d + 0.5 * d;
-                                double y2 = k * d - 4 * d + 0.5 * d;
+                                double y2 = k * d - 5 * d + 0.5 * d;
                                 double dx = x1 - x2;
                                 double dy = y1 - y2;
                                 double r = Math.sqrt(dx * dx + dy * dy);
@@ -137,11 +152,11 @@ public class Window {
                 Controller.isChanged = false;
             }
 
-            camera.input(window);
+            camera.input(mouseInput);
             Matrix4f viewMatrix = camera.getViewMatrix();
             viewMatrix.scale(HEIGHT / 3.0f);
 
-            GL11.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
             axis.draw(viewMatrix, projectionMatrix);
 
@@ -151,8 +166,7 @@ public class Window {
             mesh.render();
             shaderProgram.unbind();
 
-            glfwSwapBuffers(window);
-            glfwPollEvents();
+            glReadPixels(0, 0, WIDTH, HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
         }
     }
 

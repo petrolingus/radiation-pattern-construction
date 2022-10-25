@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.petrolingus.rpc.Controller">
+<HBox spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.petrolingus.rpc.Controller">
    <children>
-      <Canvas fx:id="canvas" height="400.0" width="400.0" />
       <VBox>
          <children>
-            <Slider fx:id="slider1" blockIncrement="0.01" majorTickUnit="0.5" max="1.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.1" />
-            <Slider fx:id="slider2" blockIncrement="0.01" majorTickUnit="0.5" max="5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
-            <Slider fx:id="slider3" blockIncrement="0.01" majorTickUnit="0.5" max="1.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.01" />
+            <Canvas fx:id="canvas" height="400.0" width="400.0" />
+            <VBox>
+               <children>
+                  <Label text="Lambda" />
+                  <TextField fx:id="lambdaField" />
+                  <Label text="K" />
+                  <TextField fx:id="kField" />
+                  <Label text="Label" />
+                  <TextField />
+               </children>
+            </VBox>
          </children>
       </VBox>
+      <Canvas fx:id="radiationPatternCanvas" height="720.0" width="720.0" />
    </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
 </HBox>
