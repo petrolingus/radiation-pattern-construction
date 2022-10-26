@@ -96,7 +96,7 @@ public class Window {
         Matrix4f projectionMatrix = new Matrix4f().setOrtho(-WIDTH / 2.0f, WIDTH / 2.0f, HEIGHT / 2.0f, -HEIGHT / 2.0f, 0.01f, 1000.f, true);
         Camera camera = new Camera();
 
-        Mesh mesh = MeshGenerator.generate(200);
+        Mesh mesh = MeshGenerator.generate(512);
         Axis axis = new Axis();
 
         float[] positions = mesh.getPositions();
@@ -109,33 +109,40 @@ public class Window {
 //                double omega = Controller.sliderValue2; // 2
 //                double amplitude = Controller.sliderValue3; // 0.01
 
-                double lambda = 1;
-                double omega = 0.5;
-                double d = lambda * omega;
-                double amplitude = 1;
+//                double lambda = 1;
+//                double d = 0.5 * lambda;
+//                double R = 200;
+
+                double lambda = Controller.lambda;
+                double d = Controller.omega * lambda;
+                double R = Controller.radius;
 
                 float min = Float.MAX_VALUE;
                 float max = Float.MIN_VALUE;
 
                 for (int i = 1; i < positions.length; i += 3) {
-                    double value = 0;
+                    double value;
+                    double a = 0;
+                    double b = 0;
                     for (int j = 0; j < 10; j++) {
                         for (int k = 0; k < 10; k++) {
                             if (Controller.sources[j][k]) {
-                                double x1 = 100 * positions[i - 1] * d;
-                                double y1 = 100 * positions[i + 1] * d;
+                                double x1 = R * positions[i - 1] * d;
+                                double y1 = R * positions[i + 1] * d;
+                                double z1 = Math.sqrt(R * R - x1 * x1 + y1 * y1);
                                 double x2 = j * d - 5 * d + 0.5 * d;
                                 double y2 = k * d - 5 * d + 0.5 * d;
+                                double z2 = 0;
                                 double dx = x1 - x2;
                                 double dy = y1 - y2;
-                                double r = Math.sqrt(dx * dx + dy * dy);
-                                double a = (amplitude * Math.cos(omega * r) / r);
-                                double b = Math.sin(omega * r);
-                                double intensity = a * a + b * b;
-                                value += intensity;
+                                double dz = z1 - z2;
+                                double r = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                                a += Math.cos(2.0 * Math.PI * r / lambda) / r;
+                                b += Math.sin(2.0 * Math.PI * r / lambda) / r;
                             }
                         }
                     }
+                    value = a * a + b * b;
                     if (value > max) {
                         max = (float) value;
                     }

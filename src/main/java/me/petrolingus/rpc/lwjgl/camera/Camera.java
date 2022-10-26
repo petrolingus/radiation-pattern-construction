@@ -29,7 +29,7 @@ public class Camera {
         mouseInput.input();
 
         theta -= mouseInput.getDisplVec().x * 0.3;
-        if (theta < 20 || theta > 160) {
+        if (theta < 0 || theta > 160) {
             theta += mouseInput.getDisplVec().x * 0.3;
         }
 

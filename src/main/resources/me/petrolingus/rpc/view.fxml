@@ -15,11 +15,11 @@
             <VBox>
                <children>
                   <Label text="Lambda" />
-                  <TextField fx:id="lambdaField" />
+                  <TextField fx:id="lambdaField" text="1" />
                   <Label text="K" />
-                  <TextField fx:id="kField" />
-                  <Label text="Label" />
-                  <TextField />
+                  <TextField fx:id="kField" text="0.5" />
+                  <Label text="Radius" />
+                  <TextField fx:id="radiusField" text="200" />
                </children>
             </VBox>
          </children>

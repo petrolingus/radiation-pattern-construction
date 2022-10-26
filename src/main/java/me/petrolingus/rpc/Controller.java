@@ -26,14 +26,15 @@ public class Controller {
 
     public TextField lambdaField;
     public TextField kField;
+    public TextField radiusField;
 
     public static int n = 10;
     public static boolean[][] sources = new boolean[n][n];
     public static boolean isChanged = false;
 
-    public static float sliderValue1 = 0;
-    public static float sliderValue2 = 0;
-    public static float sliderValue3 = 0;
+    public static float lambda = 1;
+    public static float omega = 0.5f;
+    public static float radius = 200;
 
     public void initialize() {
 
@@ -84,6 +85,21 @@ public class Controller {
 //        sliderValue1 = (float) slider1.getValue();
 //        sliderValue2 = (float) slider2.getValue();
 //        sliderValue3 = (float) slider3.getValue();
+
+       lambdaField.textProperty().addListener((observable, oldValue, newValue) -> {
+           lambda = Float.parseFloat(newValue);
+           isChanged = true;
+       });
+
+        kField.textProperty().addListener((observable, oldValue, newValue) -> {
+            omega = Float.parseFloat(newValue);
+            isChanged = true;
+        });
+
+        radiusField.textProperty().addListener((observable, oldValue, newValue) -> {
+            radius = Float.parseFloat(newValue);
+            isChanged = true;
+        });
 
         MouseInput mouseInput = new MouseInput();
         radiationPatternCanvas.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
