@@ -11,7 +11,6 @@ import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
 import java.util.Objects;
@@ -105,23 +104,17 @@ public class Window {
 
             if (Controller.isChanged) {
 
-//                double d = Controller.sliderValue1; // 0.1
-//                double omega = Controller.sliderValue2; // 2
-//                double amplitude = Controller.sliderValue3; // 0.01
-
-//                double lambda = 1;
-//                double d = 0.5 * lambda;
-//                double R = 200;
-
                 double lambda = Controller.lambda;
                 double d = Controller.omega * lambda;
                 double R = Controller.radius;
 
-                float min = Float.MAX_VALUE;
-                float max = Float.MIN_VALUE;
+                double min = Double.MAX_VALUE;
+                double max = Double.MIN_VALUE;
+
+                double t1 = 0;
+                double t2 = 0;
 
                 for (int i = 1; i < positions.length; i += 3) {
-                    double value;
                     double a = 0;
                     double b = 0;
                     for (int j = 0; j < 10; j++) {
@@ -129,9 +122,11 @@ public class Window {
                             if (Controller.sources[j][k]) {
                                 double x1 = R * positions[i - 1] * d;
                                 double y1 = R * positions[i + 1] * d;
-                                double z1 = Math.sqrt(R * R - x1 * x1 + y1 * y1);
+                                double z1 = Math.sqrt(R * R - x1 * x1 - y1 * y1);
                                 double x2 = j * d - 5 * d + 0.5 * d;
                                 double y2 = k * d - 5 * d + 0.5 * d;
+                                t1 = x2;
+                                t2 = y2;
                                 double z2 = 0;
                                 double dx = x1 - x2;
                                 double dy = y1 - y2;
@@ -142,18 +137,16 @@ public class Window {
                             }
                         }
                     }
-                    value = a * a + b * b;
-                    if (value > max) {
-                        max = (float) value;
-                    }
-                    if (value < min) {
-                        min = (float) value;
-                    }
+                    double value = Math.sqrt(a * a + b * b);
+                    max = Math.max(max, value);
+                    min = Math.min(min, value);
                     positions[i] = (float) value;
                 }
 
+                System.out.println(t1 + ":" + t2);
+
                 for (int i = 1; i < positions.length; i += 3) {
-                    positions[i] = ((positions[i] - min) / (max - min)) - 0.5f;
+                    positions[i] = (float) ((positions[i] - min) / (max - min)) - 0.5f;
                 }
 
                 Controller.isChanged = false;

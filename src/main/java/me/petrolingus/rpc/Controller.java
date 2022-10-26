@@ -67,25 +67,6 @@ public class Controller {
             isChanged = true;
         });
 
-//        slider1.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            sliderValue1 = newValue.floatValue();
-//            isChanged = true;
-//        });
-//
-//        slider2.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            sliderValue2 = newValue.floatValue();
-//            isChanged = true;
-//        });
-//
-//        slider3.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            sliderValue3 = newValue.floatValue();
-//            isChanged = true;
-//        });
-
-//        sliderValue1 = (float) slider1.getValue();
-//        sliderValue2 = (float) slider2.getValue();
-//        sliderValue3 = (float) slider3.getValue();
-
        lambdaField.textProperty().addListener((observable, oldValue, newValue) -> {
            lambda = Float.parseFloat(newValue);
            isChanged = true;
@@ -147,7 +128,6 @@ public class Controller {
                     int g = buffer.get(i + 1) & 0xFF;
                     int b = buffer.get(i + 2) & 0xFF;
                     pixels[(720 - (y + 1)) * 720 + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
-//                    pixels[(720 - (y + 1)) * 720 + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
                 }
             }
 
@@ -155,7 +135,6 @@ public class Controller {
             PixelWriter pixelWriter = image.getPixelWriter();
             pixelWriter.setPixels(0, 0, 720, 720, PixelFormat.getIntArgbInstance(), pixels, 0, 720);
             radiationPatternCanvas.getGraphicsContext2D().drawImage(image, 0, 0);
-
         }, 0, 16, TimeUnit.MILLISECONDS);
     }
 

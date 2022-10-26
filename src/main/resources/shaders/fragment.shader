@@ -10,7 +10,7 @@ float valueMapper(float value, float min, float max) {
 
 void main()
 {
-    float c = valueMapper(height, -1, 1);
+    float c = valueMapper(height, -0.5, 0.5);
     vec3 color = mix(vec3(0, 0, 1), vec3(1, 0, 0), c);
     fragColor = vec4(color, 1.0);
 }

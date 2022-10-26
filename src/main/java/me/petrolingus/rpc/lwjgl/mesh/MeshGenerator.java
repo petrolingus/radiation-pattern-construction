@@ -18,8 +18,6 @@ public class MeshGenerator {
                 positionsList.add(x);
                 positionsList.add(0.0f);
                 positionsList.add(y);
-//                int id = i * (quality + 1) + j;
-//                System.out.println("Vertex #" + id + ": (" + x + ", " + 0.0 + ", " + y + ")");
             }
         }
 
@@ -44,7 +42,6 @@ public class MeshGenerator {
         int[] indices = new int[indicesList.size()];
         for (int i = 0; i < indicesList.size(); i++) {
             indices[i] = indicesList.get(i);
-//            System.out.println(indices[i]);
         }
 
         System.out.println("Vertices count: " + positions.length);
