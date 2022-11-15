@@ -1,7 +1,6 @@
 package me.petrolingus.rpc.lwjgl;
 
 import me.petrolingus.rpc.Controller;
-import me.petrolingus.rpc.lwjgl.axis.Axis;
 import me.petrolingus.rpc.lwjgl.camera.Camera;
 import me.petrolingus.rpc.lwjgl.mesh.Mesh;
 import me.petrolingus.rpc.lwjgl.mesh.MeshGenerator;
@@ -96,7 +95,6 @@ public class Window {
         Camera camera = new Camera();
 
         Mesh mesh = MeshGenerator.generate(512);
-        Axis axis = new Axis();
 
         float[] positions = mesh.getPositions();
 
@@ -155,8 +153,6 @@ public class Window {
             viewMatrix.scale(HEIGHT / 3.0f);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-//            axis.draw(viewMatrix, projectionMatrix);
 
             shaderProgram.bind();
             shaderProgram.setUniform("viewMatrix", viewMatrix);
