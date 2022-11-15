@@ -156,7 +156,7 @@ public class Window {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-            axis.draw(viewMatrix, projectionMatrix);
+//            axis.draw(viewMatrix, projectionMatrix);
 
             shaderProgram.bind();
             shaderProgram.setUniform("viewMatrix", viewMatrix);
