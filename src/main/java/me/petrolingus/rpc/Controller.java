@@ -28,7 +28,7 @@ public class Controller {
     public TextField kField;
     public TextField radiusField;
 
-    public static int n = 10;
+    public static int n = 11;
     public static boolean[][] sources = new boolean[n][n];
     public static boolean isChanged = false;
 
@@ -46,12 +46,14 @@ public class Controller {
         drawGrid(graphicsContext2D, w, h);
 
         canvas.setOnMouseClicked(event -> {
-
+            double d = omega * lambda;
             int i = (int) Math.floor(n * event.getX() / canvas.getWidth());
             int j = (int) Math.floor(n * event.getY() / canvas.getHeight());
             double x = i * w;
             double y = j * h;
-            System.out.println(i + ":" + j);
+            double x2 = i * d - 0.5 * d * 10;
+            double y2 = j * d - 0.5 * d * 10;
+            System.out.println(i + ":" + j + "(" + x2 + ":" + y2 + ")");
 
             if (sources[i][j]) {
                 graphicsContext2D.setFill(Color.WHITE);
