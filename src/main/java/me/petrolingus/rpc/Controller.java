@@ -2,7 +2,6 @@ package me.petrolingus.rpc;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
@@ -13,8 +12,6 @@ import me.petrolingus.rpc.lwjgl.Window;
 import me.petrolingus.rpc.util.MouseInput;
 
 import java.nio.ByteBuffer;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
